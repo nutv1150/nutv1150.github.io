@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>nut_y5 — Project Archive</title>
+<meta name="description" content="Project archive and source index for nut_y5 (nutv1150)" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     DESIGN TOKENS
+     Concept: engineering blueprint / technical drawing sheet.
+     Each project = a sheet pinned to the blueprint, stamped
+     with its build status because the live demos have expired.
+     ============================================================ */
+  :root{
+    --blue-0: #0a1d30;   /* deepest background */
+    --blue-1: #0e2740;   /* panel background */
+    --blue-2: #123055;   /* card / raised surface */
+    --line: #3f6a8f;     /* blueprint grid lines */
+    --line-soft: rgba(125,211,232,0.14);
+    --cyan: #7dd3e8;     /* blueprint highlight ink */
+    --cyan-dim: #4f92a8;
+    --paper: #f3efe0;    /* index card paper */
+    --paper-dim: #e8e2cd;
+    --ink: #182b23;      /* dark ink on paper */
+    --amber: #f2a541;    /* stamp / accent */
+    --amber-dim: #c98328;
+    --white: #eef4f7;
+
+    --font-display: "Space Grotesk", "IBM Plex Sans Thai", sans-serif;
+    --font-body: "IBM Plex Sans", "IBM Plex Sans Thai", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background-color: var(--blue-0);
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--white);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+  :focus-visible{ outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  .wrap{ max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Title block (hero) ---------- */
+  .titleblock{
+    border-bottom: 1px solid var(--line);
+    padding: 56px 0 0 0;
+  }
+  .tb-eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tb-eyebrow::before{
+    content:"";
+    width: 22px; height: 1px;
+    background: var(--cyan-dim);
+    display:inline-block;
+  }
+  h1.tb-name{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 7vw, 4.6rem);
+    margin: 14px 0 6px 0;
+    letter-spacing: -0.01em;
+    color: var(--white);
+  }
+  .tb-role{
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+    color: var(--cyan);
+    margin: 0 0 30px 0;
+    font-weight: 500;
+  }
+
+  .tb-fields{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    margin-bottom: -1px;
+  }
+  .tb-field{
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 16px 14px;
+  }
+  .tb-field .k{
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cyan-dim);
+    display:block;
+    margin-bottom: 6px;
+  }
+  .tb-field .v{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--white);
+  }
+  .tb-field a.v{ color: var(--amber); text-decoration: none; border-bottom: 1px solid transparent; }
+  .tb-field a.v:hover{ border-bottom-color: var(--amber); }
+
+  @media (max-width: 720px){
+    .tb-fields{ grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ---------- Intro note ---------- */
+  .note{
+    max-width: 620px;
+    padding: 30px 0 8px;
+    font-size: 15px;
+    color: #c7d6de;
+  }
+  .note strong{ color: var(--amber); font-weight: 600; }
+
+  /* ---------- Section header ---------- */
+  .section-head{
+    display:flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 64px 0 28px;
+  }
+  .section-head .no{
+    font-family: var(--font-mono);
+    color: var(--cyan-dim);
+    font-size: 13px;
+  }
+  .section-head h2{
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    margin: 0;
+    font-weight: 600;
+  }
+  .section-head .rule{
+    flex:1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ---------- Sheet grid ---------- */
+  .sheets{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 26px;
+    padding-bottom: 20px;
+  }
+
+  .sheet{
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 3px;
+    padding: 22px 22px 20px;
+    position: relative;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.35), 0 2px 0 rgba(0,0,0,0.15);
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+  .sheet:nth-child(1){ --tilt: -0.6deg; }
+  .sheet:nth-child(2){ --tilt: 0.5deg; }
+  .sheet:nth-child(3){ --tilt: -0.3deg; }
+  .sheet:nth-child(4){ --tilt: 0.7deg; }
+  .sheet:nth-child(5){ --tilt: -0.5deg; }
+  .sheet:nth-child(6){ --tilt: 0.4deg; }
+  .sheet:hover, .sheet:focus-within{
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: 0 20px 36px rgba(0,0,0,0.45), 0 2px 0 rgba(0,0,0,0.15);
+  }
+  .sheet::before{
+    /* pin */
+    content:"";
+    position:absolute;
+    top:-7px; left: 20px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffd98a, var(--amber-dim));
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  }
+
+  .sheet-top{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .sheet-id{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #6b6250;
+    letter-spacing: 0.06em;
+  }
+  .stamp{
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1.5px solid currentColor;
+    border-radius: 3px;
+    padding: 3px 7px;
+    transform: rotate(-4deg);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  .stamp.archived{ color: #b1462f; }
+  .stamp.live{ color: #2f7a4f; }
+
+  .sheet h3{
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    margin: 4px 0 4px;
+    font-weight: 600;
+  }
+  .sheet .stack{
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: #7a6f57;
+    margin: 0 0 12px;
+    letter-spacing: 0.03em;
+  }
+  .sheet p.desc{
+    font-size: 14px;
+    color: #3a352a;
+    margin: 0 0 16px;
+    min-height: 42px;
+  }
+  .sheet .links{
+    display:flex;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    border-top: 1px dashed #c7bfa4;
+    padding-top: 12px;
+  }
+  .sheet .links a{
+    text-decoration: none;
+    color: #21395e;
+    font-weight: 600;
+    display:flex;
+    align-items:center;
+    gap:5px;
+  }
+  .sheet .links a:hover{ color: var(--amber-dim); }
+  .sheet .links a svg{ width: 13px; height: 13px; }
+
+  .sheet-wide{
+    grid-column: span 2;
+  }
+  @media (max-width: 640px){
+    .sheet-wide{ grid-column: span 1; }
+  }
+  .feature-list{
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .feature-list li{
+    font-size: 13.5px;
+    color: #3a352a;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .feature-list li::before{
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--amber-dim);
+  }
+  .feature-list strong{ color: #21395e; }
+  .feature-list code{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--paper-dim);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  /* ---------- Legend ---------- */
+  .legend{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: #9db3c2;
+    padding-bottom: 46px;
+  }
+  .legend span{ display:flex; align-items:center; gap:7px; }
+  .legend .dot{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+  .legend .dot.archived{ background:#b1462f; }
+  .legend .dot.live{ background:#2f7a4f; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 30px 0 60px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: #7f96a6;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer a{ color: var(--cyan); text-decoration: none; }
+  footer a:hover{ text-decoration: underline; }
+
+  .cta-all{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top: 6px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--amber);
+    text-decoration:none;
+    border-bottom: 1px solid var(--amber-dim);
+    padding-bottom: 2px;
+  }
+  .cta-all:hover{ color: #ffcf85; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="titleblock">
+    <p class="tb-eyebrow">Project Archive — Sheet 01</p>
+    <h1 class="tb-name">nut_y5</h1>
+    <p class="tb-role">Student Developer — mobile · web · desktop</p>
+
+    <div class="tb-fields">
+      <div class="tb-field">
+        <span class="k">Drawn by</span>
+        <span class="v">nutv1150</span>
+      </div>
+      <div class="tb-field">
+        <span class="k">Source</span>
+        <a class="v" href="https://github.com/nutv1150" target="_blank" rel="noopener">github.com/nutv1150</a>
+      </div>
+      <div class="tb-field">
+        <span class="k">Sheets</span>
+        <span class="v">5 of 7 shown</span>
+      </div>
+      <div class="tb-field">
+        <span class="k">Revision</span>
+        <span class="v">rebuilt Aug 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <p class="note">
+    เดิมทีหลายโปรเจกต์นี้เคย deploy ไว้แบบสด ๆ แต่ database/ deployment ตัวเก่าหมดอายุ (โดนลบ) ไปแล้ว
+    หน้านี้เลยทำหน้าที่เป็น <strong>ใบบันทึกแบบร่าง (spec sheet)</strong> ของแต่ละโปรเจกต์แทน — ดูโค้ดต้นฉบับได้ที่ GitHub เสมอ
+    ส่วน live demo อันไหนยังไม่ตายก็จะมีตรายาง <strong style="color:#4a9a6b">LIVE</strong> ติดไว้ให้
+  </p>
+
+  <section aria-labelledby="sheets-heading">
+    <div class="section-head">
+      <span class="no">§1</span>
+      <h2 id="sheets-heading">โปรเจกต์</h2>
+      <span class="rule"></span>
+    </div>
+
+    <div class="sheets">
+
+      <!-- EDIT ME: แก้คำอธิบายตรงนี้ได้เลยถ้าอยากปรับ -->
+      <article class="sheet">
+        <div class="sheet-top">
+          <span class="sheet-id">SHT-01 · my_first_app</span>
+          <span class="stamp archived">Demo Archived</span>
+        </div>
+        <h3>Travel Trip Planner</h3>
+        <p class="stack">Dart · Flutter · Mobile</p>
+        <p class="desc">แอปมือถือแรกที่เคยทำ — วางแผนทริปเดินทาง เก็บ itinerary และจุดหมายไว้ในที่เดียว</p>
+        <div class="links">
+          <a href="https://github.com/nutv1150/my_first_app" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 5.02 3.25 9.27 7.76 10.77.57.1.78-.25.78-.55v-1.94c-3.16.69-3.82-1.52-3.82-1.52-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.65 1.23 3.3.94.1-.73.4-1.23.72-1.51-2.52-.29-5.17-1.26-5.17-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.16.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.18-1.47 3.13-1.16 3.13-1.16.63 1.57.23 2.73.11 3.02.73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.18 5.59.41.35.77 1.04.77 2.11v3.13c0 .3.21.66.79.55 4.5-1.5 7.75-5.75 7.75-10.77C23.25 5.48 18.27.5 12 .5z"/></svg>
+            source
+          </a>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <div class="sheet-top">
+          <span class="sheet-id">SHT-02 · pm2.5</span>
+          <span class="stamp archived">Demo Archived</span>
+        </div>
+        <h3>PM2.5 Monitor</h3>
+        <p class="stack">Java · Swing/GUI · Desktop</p>
+        <p class="desc">โปรแกรม desktop แสดงผลค่าฝุ่น PM2.5 ผ่าน GUI แบบ real-time สำหรับติดตามคุณภาพอากาศ</p>
+        <div class="links">
+          <a href="https://github.com/nutv1150/pm2.5" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 5.02 3.25 9.27 7.76 10.77.57.1.78-.25.78-.55v-1.94c-3.16.69-3.82-1.52-3.82-1.52-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.65 1.23 3.3.94.1-.73.4-1.23.72-1.51-2.52-.29-5.17-1.26-5.17-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.16.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.18-1.47 3.13-1.16 3.13-1.16.63 1.57.23 2.73.11 3.02.73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.18 5.59.41.35.77 1.04.77 2.11v3.13c0 .3.21.66.79.55 4.5-1.5 7.75-5.75 7.75-10.77C23.25 5.48 18.27.5 12 .5z"/></svg>
+            source
+          </a>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <div class="sheet-top">
+          <span class="sheet-id">SHT-03 · Web-1-MVC</span>
+          <span class="stamp archived">DB Expired</span>
+        </div>
+        <h3>Web MVC Project</h3>
+        <p class="stack">PHP · MVC pattern · Web</p>
+        <p class="desc">เว็บแอปพลิเคชันที่เขียนตามสถาปัตยกรรม MVC ด้วย PHP ล้วน ไม่พึ่ง framework สำเร็จรูป</p>
+        <div class="links">
+          <a href="https://github.com/nutv1150/Web-1-MVC" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 5.02 3.25 9.27 7.76 10.77.57.1.78-.25.78-.55v-1.94c-3.16.69-3.82-1.52-3.82-1.52-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.65 1.23 3.3.94.1-.73.4-1.23.72-1.51-2.52-.29-5.17-1.26-5.17-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.16.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.18-1.47 3.13-1.16 3.13-1.16.63 1.57.23 2.73.11 3.02.73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.18 5.59.41.35.77 1.04.77 2.11v3.13c0 .3.21.66.79.55 4.5-1.5 7.75-5.75 7.75-10.77C23.25 5.48 18.27.5 12 .5z"/></svg>
+            source
+          </a>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <div class="sheet-top">
+          <span class="sheet-id">SHT-04 · Unit</span>
+          <span class="stamp archived">Desktop Tool</span>
+        </div>
+        <h3>UNIT — Unified CTF Toolkit</h3>
+        <p class="stack">Python · CustomTkinter · Desktop GUI</p>
+        <p class="desc">
+          เครื่องมือ desktop รวม tool ที่ใช้บ่อยตอนแข่ง CTF ไว้ในที่เดียว — encode/decode, hashing, XOR, และรัน pipeline คำสั่งวิเคราะห์ไฟล์ต่อกัน ช่วยลดเวลาสลับไปมาระหว่างหลายโปรแกรม
+        </p>
+        <div class="links">
+          <a href="https://github.com/nutv1150/Unit" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 5.02 3.25 9.27 7.76 10.77.57.1.78-.25.78-.55v-1.94c-3.16.69-3.82-1.52-3.82-1.52-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.65 1.23 3.3.94.1-.73.4-1.23.72-1.51-2.52-.29-5.17-1.26-5.17-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.16.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.18-1.47 3.13-1.16 3.13-1.16.63 1.57.23 2.73.11 3.02.73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.18 5.59.41.35.77 1.04.77 2.11v3.13c0 .3.21.66.79.55 4.5-1.5 7.75-5.75 7.75-10.77C23.25 5.48 18.27.5 12 .5z"/></svg>
+            source
+          </a>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <div class="sheet-top">
+          <span class="sheet-id">SHT-05 · Minipojectdelivery</span>
+          <span class="stamp archived">Demo Archived</span>
+        </div>
+        <h3>Mini Delivery Project</h3>
+        <p class="stack">Dart · Flutter · Mobile</p>
+        <p class="desc">มินิโปรเจกต์แอปส่งของ/เดลิเวอรี่ ฝึกทำ flow สั่งซื้อ-ติดตามสถานะแบบย่อ</p>
+        <div class="links">
+          <a href="https://github.com/nutv1150/Minipojectdelivery" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 5.02 3.25 9.27 7.76 10.77.57.1.78-.25.78-.55v-1.94c-3.16.69-3.82-1.52-3.82-1.52-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.65 1.23 3.3.94.1-.73.4-1.23.72-1.51-2.52-.29-5.17-1.26-5.17-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.16.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.18-1.47 3.13-1.16 3.13-1.16.63 1.57.23 2.73.11 3.02.73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.18 5.59.41.35.77 1.04.77 2.11v3.13c0 .3.21.66.79.55 4.5-1.5 7.75-5.75 7.75-10.77C23.25 5.48 18.27.5 12 .5z"/></svg>
+            source
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="legend">
+      <span><span class="dot archived"></span> Demo Archived / DB Expired — โค้ดยังอยู่ครบที่ GitHub</span>
+      <span><span class="dot live"></span> Live — ยังเปิดใช้งานอยู่จริง</span>
+    </div>
+
+    <a class="cta-all" href="https://github.com/nutv1150?tab=repositories" target="_blank" rel="noopener">
+      ดู repository ทั้งหมด (7 ทั้งหมด) บน GitHub →
+    </a>
+  </section>
+
+  <footer>
+    <span>Sheet compiled Aug 2026 · แก้ไขข้อความในไฟล์นี้ได้ตรงๆ (ค้นหาคำว่า "EDIT ME")</span>
+    <a href="https://github.com/nutv1150" target="_blank" rel="noopener">github.com/nutv1150</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
